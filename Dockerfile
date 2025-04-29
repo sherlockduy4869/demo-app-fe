@@ -1,20 +1,25 @@
-
-FROM node:18-alpine 
+# Step 1: Build the Next.js app
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-# Copy the rest of the code
 COPY . .
 
-# Expose port
-EXPOSE 3000
+RUN npm run build
 
-# Start the Next.js app
-CMD ["npm", "run", "dev"]
+# Step 2: Serve with Nginx
+FROM nginx:alpine
 
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 
+# Copy static site from builder
+COPY --from=builder /app/out /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
