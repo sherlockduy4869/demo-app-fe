@@ -9,6 +9,7 @@ function App() {
       const query = await fetch('http://10.0.154.219/api/v1/user/health');
       const response = await query.json();
       setUserInfor(response.status);
+      console.log(response.status);
     }
     getData();
   },[])
