@@ -6,7 +6,7 @@ function App() {
   const [userInfor, setUserInfor] = useState([]);
   useEffect(()=>{
     const getData = async () =>{
-      const query = await fetch('http://10.0.130.107/api/v1/user/health');
+      const query = await fetch('http://10.0.15.122:3001/api/v1/user/health');
       const response = await query.json();
       setUserInfor(response.status);
       console.log(response.status);
