@@ -6,7 +6,7 @@ function App() {
   const [userInfor, setUserInfor] = useState([]);
   useEffect(()=>{
     const getData = async () =>{
-      const query = await fetch('https://trandinhduycloud.click/api/v1/user/health');
+      const query = await fetch('http://10.0.154.219/api/v1/user/health');
       const response = await query.json();
       setUserInfor(response.status);
     }
